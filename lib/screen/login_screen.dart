@@ -1,9 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_firebase_login/core/firebase_auth_methods.dart';
+
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class LoginScreen extends StatelessWidget {
+import '../service/firebase_auth_service.dart';
+
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  bool _isLoading = false;
+
+  Future<void> _loginGoogle() async {
+    setState(() {
+      _isLoading = true;
+    });
+    await FirebaseAuthService().signInWithGoogle();
+    setState(() {
+      _isLoading = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,56 +42,72 @@ class LoginScreen extends StatelessWidget {
             stops: [0, 0.8],
           ),
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const FlutterLogo(
-              size: 150,
-            ),
-            const SizedBox(
-              height: 50,
-            ),
-            GestureDetector(
-              onTap: () async {
-                bool isSuccess = await FirebaseAuthMethods().signInWithGoogle();
-                if (!isSuccess) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Try again'),
-                    ),
-                  );
-                }
-              },
-              child: Container(
-                height: 50,
-                width: 280,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(100),
-                ),
-                child: Row(
+        child: _isLoading
+            ? Center(
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      FontAwesomeIcons.google,
-                      size: 30,
-                      color: Colors.red[700],
+                  children: const [
+                    SizedBox(
+                      height: 100,
+                      width: 100,
+                      child: CircularProgressIndicator(),
                     ),
-                    const SizedBox(
-                      width: 14,
-                    ),
-                    const Text(
-                      'Login With Google',
-                      style: TextStyle(
-                        fontSize: 20,
+                    Padding(
+                      padding: EdgeInsets.all(18.0),
+                      child: Text(
+                        'Processing',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                        ),
                       ),
-                    ),
+                    )
                   ],
                 ),
+              )
+            : Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const FlutterLogo(
+                    size: 150,
+                  ),
+                  const SizedBox(
+                    height: 50,
+                  ),
+                  GestureDetector(
+                    onTap: () async {
+                      _loginGoogle();
+                    },
+                    child: Container(
+                      height: 50,
+                      width: 280,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(100),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            FontAwesomeIcons.google,
+                            size: 30,
+                            color: Colors.red[700],
+                          ),
+                          const SizedBox(
+                            width: 14,
+                          ),
+                          const Text(
+                            'Login With Google',
+                            style: TextStyle(
+                              fontSize: 20,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ),
-          ],
-        ),
       ),
     );
   }

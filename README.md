@@ -1,16 +1,19 @@
-# flutter_firebase_login
+# Flutter Firebase Auth Google Sign In
+Layouting the UI Login and Implement firebase auth google sign in
 
-A new Flutter project.
+## Youtube Video
 
-## Getting Started
+[![Watch the video](https://img.youtube.com/vi/uOBe0Wf5vDE/sddefault.jpg)](https://youtu.be/uOBe0Wf5vDE)
 
-This project is a starting point for a Flutter application.
+https://youtu.be/uOBe0Wf5vDE
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## ScreenShot
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+| Login        | Home    |
+|--------------|-----------|
+| <img src="1.png" width="300"/> | <img src="2.png" width="300"/>      |
+
+<img src="3.png" width="300"/>
+
+

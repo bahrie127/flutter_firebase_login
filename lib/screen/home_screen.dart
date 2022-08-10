@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_firebase_login/core/firebase_auth_methods.dart';
+
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import '../service/firebase_auth_service.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -29,27 +31,30 @@ class HomeScreen extends StatelessWidget {
             CircleAvatar(
               radius: 50,
               backgroundImage:
-                  NetworkImage(FirebaseAuthMethods().user.photoURL!),
+                  NetworkImage(FirebaseAuthService().user.photoURL!),
             ),
             const SizedBox(
               height: 20,
             ),
             Container(
-              height: 150,
+              // height: 150,
               width: 300,
               decoration: BoxDecoration(
-                color: Colors.white70,
+                color: const Color.fromARGB(255, 232, 232, 232),
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    'Profile',
-                    style: TextStyle(
-                      color: Colors.blue[900],
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold,
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      'Profile',
+                      style: TextStyle(
+                        color: Colors.blue[900],
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                   const Divider(),
@@ -57,7 +62,7 @@ class HomeScreen extends StatelessWidget {
                     height: 10,
                   ),
                   Text(
-                    'Name: ${FirebaseAuthMethods().user.displayName}',
+                    'Name: ${FirebaseAuthService().user.displayName}',
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
@@ -68,12 +73,15 @@ class HomeScreen extends StatelessWidget {
                     height: 10,
                   ),
                   Text(
-                    'Email: ${FirebaseAuthMethods().user.email}',
+                    'Email: ${FirebaseAuthService().user.email}',
                     style: TextStyle(
                       color: Colors.blue[900],
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
+                  ),
+                  const SizedBox(
+                    height: 20,
                   ),
                 ],
               ),
@@ -83,7 +91,7 @@ class HomeScreen extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
-                FirebaseAuthMethods().signOut();
+                FirebaseAuthService().signOut();
               },
               child: Container(
                 height: 50,
